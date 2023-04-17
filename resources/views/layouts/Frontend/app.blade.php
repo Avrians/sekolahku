@@ -13,6 +13,7 @@
     @include('layouts.Frontend.style')
 </head>
 
+{{-- Bagian Body --}}
 <body>
     <!-- Preloader Start Here -->
     <div id="preloader"></div>
