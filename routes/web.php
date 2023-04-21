@@ -1,8 +1,12 @@
 <?php
 
-use App\Http\Controllers\Backend\SettingController;
-use Illuminate\Support\Facades\Route;
+use Backend\ProfileController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Frontend\MenuController;
+use App\Http\Controllers\Frontend\IndexController;
+use App\Http\Controllers\Backend\SettingController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,33 +24,33 @@ Route::get('/','Frontend\IndexController@index');
 
     ///// MENU \\\\\
         //// PROFILE SEKOLAJ \\\\
-        Route::get('profile-sekolah',[App\Http\Controllers\Frontend\IndexController::class,'profileSekolah'])->name('profile.sekolah');
+        Route::get('profile-sekolah',[IndexController::class,'profileSekolah'])->name('profile.sekolah');
 
         //// VISI dan MISI
-        Route::get('visi-dan-misi',[App\Http\Controllers\Frontend\IndexController::class,'visimisi'])->name('visimisi.sekolah');
+        Route::get('visi-dan-misi',[IndexController::class,'visimisi'])->name('visimisi.sekolah');
 
         //// PROGRAM STUDI \\\\
-        Route::get('program/{slug}', [App\Http\Controllers\Frontend\MenuController::class, 'programStudi']);
+        Route::get('program/{slug}', [MenuController::class, 'programStudi']);
         //// PROGRAM STUDI \\\\
-        Route::get('kegiatan/{slug}', [App\Http\Controllers\Frontend\MenuController::class, 'kegiatan']);
+        Route::get('kegiatan/{slug}', [MenuController::class, 'kegiatan']);
 
         /// BERITA \\\
-        Route::get('berita',[App\Http\Controllers\Frontend\IndexController::class,'berita'])->name('berita');
-        Route::get('berita/{slug}',[App\Http\Controllers\Frontend\IndexController::class,'detailBerita'])->name('detail.berita');
+        Route::get('berita',[IndexController::class,'berita'])->name('berita');
+        Route::get('berita/{slug}',[IndexController::class,'detailBerita'])->name('detail.berita');
 
         /// EVENT \\\
-        Route::get('event/{slug}',[App\Http\Controllers\Frontend\IndexController::class,'detailEvent'])->name('detail.event');
-        Route::get('event',[App\Http\Controllers\Frontend\IndexController::class,'events'])->name('event');
+        Route::get('event/{slug}',[IndexController::class,'detailEvent'])->name('detail.event');
+        Route::get('event',[IndexController::class,'events'])->name('event');
 
 Auth::routes(['register' => false]);
 
 
 // ======= BACKEND ======= \\
 Route::middleware('auth')->group(function () {
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
 
      /// PROFILE \\\
-    Route::resource('profile-settings',Backend\ProfileController::class);
+    Route::resource('profile-settings',ProfileController::class);
     /// SETTINGS \\\
       Route::prefix('settings')->group( function(){
         // BANK
