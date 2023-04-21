@@ -1,11 +1,11 @@
 <?php
 
-use Backend\ProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Frontend\MenuController;
 use App\Http\Controllers\Frontend\IndexController;
+use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\SettingController;
 /*
 |--------------------------------------------------------------------------
@@ -54,16 +54,16 @@ Route::middleware('auth')->group(function () {
     /// SETTINGS \\\
       Route::prefix('settings')->group( function(){
         // BANK
-        Route::get('/',[App\Http\Controllers\Backend\SettingController::class,'index'])->name('settings');
+        Route::get('/',[SettingController::class,'index'])->name('settings');
         // TAMBAH BANK
-        Route::post('add-bank',[App\Http\Controllers\Backend\SettingController::class,'addBank'])->name('settings.add.bank');
+        Route::post('add-bank',[SettingController::class,'addBank'])->name('settings.add.bank');
         // NOTIFICATIONS
         Route::put('notifications/{id}',[SettingController::class,'notifications']);
       });
 
 
     /// CHANGE PASSWORD
-    Route::put('profile-settings/change-password/{id}',[App\Http\Controllers\Backend\ProfileController::class, 'changePassword'])->name('profile.change-password');
+    Route::put('profile-settings/change-password/{id}',[ProfileController::class, 'changePassword'])->name('profile.change-password');
 
     Route::prefix('/')->middleware('role:Admin')->group( function (){
         ///// WEBSITE \\\\\
